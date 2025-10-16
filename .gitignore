@@ -1,0 +1,19 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment variables (secrets)
+.env
+
+# Build and cache folders
+dist/
+build/
+.cache/
+
+# System files (safe to ignore)
+.DS_Store
+
+# VS Code settings (local to your computer)
+.vscode/
