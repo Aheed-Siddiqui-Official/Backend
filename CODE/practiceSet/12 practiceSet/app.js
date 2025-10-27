@@ -1,10 +1,10 @@
-//core module
+//core modules
 const path = require("path");
 
-// external module
+// external modules
 const express = require("express");
 
-// local module
+// local modules
 const userRouter = require("./routes/userRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootDir = require("./utils/pathUtil");
