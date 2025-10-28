@@ -1,1 +1,26 @@
-[{"houseName":"Cantt","price":"$ 123","location":"sam","rating":"5","photoUrl":"https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-house-with-no-background-png-image_9197435.png"},{"houseName":"mas2","price":"$ 234","location":"sam","rating":"5","photoUrl":"https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-house-with-no-background-png-image_9197435.png"}]
+[
+  {
+    "id": "1",
+    "houseName": "Cantt",
+    "price": "$ 123",
+    "location": "sam",
+    "rating": "5",
+    "photoUrl": "/images/house1.png"
+  },
+  {
+    "id": "2",
+    "houseName": "mas2",
+    "price": "$ 234",
+    "location": "sam",
+    "rating": "5",
+    "photoUrl": "/images/house2.png"
+  },
+  {
+    "houseName": "ABC",
+    "price": "121121",
+    "location": "mas.street",
+    "rating": "1",
+    "photoUrl": "/images/house4.png",
+    "id": "0.3054460490068487"
+  }
+]
