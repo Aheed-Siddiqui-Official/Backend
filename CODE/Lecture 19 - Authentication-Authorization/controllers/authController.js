@@ -1,4 +1,6 @@
 const { check, validationResult } = require("express-validator");
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 // GET LOGIN
 exports.getLogin = (req, res, next) => {
@@ -6,6 +8,10 @@ exports.getLogin = (req, res, next) => {
     pageTitle: "Login",
     currentPage: "login",
     isLoggedIn: false,
+    errors: [],
+    oldInput: {
+      email: "",
+    },
   });
 };
 
@@ -97,15 +103,61 @@ exports.postSignup = [
       });
     }
 
-    // TODO: ADD SAVING USER TO DB HERE
-
-    res.redirect("/login");
+    bcrypt
+      .hash(password, 12)
+      .then((hashedPassword) => {
+        const user = new User({
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+          userType,
+        });
+        return user.save();
+      })
+      .then(() => {
+        res.redirect("/login");
+      })
+      .catch((err) => {
+        return res.status(422).render("auth/signup", {
+          pageTitle: "Signup",
+          currentPage: "signup",
+          isLoggedIn: false,
+          errors: [err.message],
+          oldInput: { firstName, lastName, email, userType },
+        });
+      });
   },
 ];
 
 // POST LOGIN
-exports.postLogin = (req, res, next) => {
+exports.postLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login",
+      currentPage: "login",
+      isLoggedIn: false,
+      errors: ["User doesn't exist"],
+      oldInput: {email},
+    });
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if(!isMatch) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login",
+      currentPage: "login",
+      isLoggedIn: false,
+      errors: ["Invalid Password"],
+      oldInput: {email},
+    });
+  }
+
   req.session.isLoggedIn = true;
+  req.session.user = user;
+  await req.session.save();
   res.redirect("/");
 };
 
