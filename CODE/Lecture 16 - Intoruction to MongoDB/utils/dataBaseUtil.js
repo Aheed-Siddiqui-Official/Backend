@@ -2,13 +2,12 @@ const mongo = require("mongodb");
 
 const MongoClient = mongo.MongoClient;
 
-const MONGO_URL =
-  "mongodb+srv://mas:mas29@mas.lrkcwy5.mongodb.net/?appName=MAS";
+
 
 let _db;
 
 const mongoConnect = (callback) => {
-  MongoClient.connect(MONGO_URL)
+  
     .then((client) => {
       callback();
       _db = client.db('airbnb');
