@@ -1,0 +1,77 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gray-50">
+  <%- include('../partials/nav') %>
+  <main class="container mx-auto px-4 py-16 max-w-7xl">
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-bold text-gray-900 mb-6">
+        Find your next stay
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Discover the perfect space for your getaway, with all the comforts of home
+      </p>
+    </div>
+
+    <!-- Property Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <% registeredHomes.forEach(home => { %>
+        <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <!-- Image Container -->
+          <div class="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
+            <img 
+              src="<%= home.photo%>" 
+              alt="<%= home.houseName %>" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              onerror="this.src='/images/default-home.jpg'"
+            >
+            <!-- Favorite Button -->
+            <button class="absolute top-4 right-4 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors duration-200">
+              <svg class="w-5 h-5 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Content Container -->
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-lg font-semibold text-gray-900 group-hover:text-red-500 transition-colors duration-200">
+                <%= home.houseName %>
+              </h3>
+              <div class="flex items-center space-x-1">
+                <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span class="font-medium text-gray-700"><%= home.rating %></span>
+              </div>
+            </div>
+
+            <p class="flex items-center text-gray-600 mb-4">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              </svg>
+              <%= home.location %>
+            </p>
+
+            <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+              <div class="text-gray-900">
+                <span class="text-lg font-bold">Rs.<%= home.price %></span>
+                <span class="text-gray-600">/night</span>
+              </div>
+              
+              <a href="/homes/<%= home._id %>" 
+                class="inline-flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition duration-200 text-sm font-medium">
+                View Details
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>
